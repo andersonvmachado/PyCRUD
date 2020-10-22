@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  #producer:
+  #  container_name: fast-api
+  #  build: '.'
+  #  environment:
+  #    HOST_REDIS: redis
+  #    FLASK_ENV: development
+  #  depends_on:
+  #    - redis
+  #  ports:
+  #    - '8000:8000'
+  #  restart: always
+
+  database:
+    container_name: postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: database
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    ports:
+      - '6379:6379'
