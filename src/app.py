@@ -1,16 +1,13 @@
-from os import getenv
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from src.settings import URI_CONNECTION
+from src.routes import init_resources
 
-from src.controllers.user import get_user
 
 app = Flask(__name__)
-
-DB_HOST = getenv('DB_HOST')
-
-
-@app.route("/user")
-def user():
-    return get_user()
+app.config["SQLALCHEMY_DATABASE_URI"] = URI_CONNECTION
+db = SQLAlchemy(app)
+init_resources(app)
 
 if __name__ == "__main__":
     app.run()
