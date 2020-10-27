@@ -11,7 +11,6 @@ def init_resources(app):
     api.add_resource(PessoasController, "/pessoas")
     api.add_resource(PessoaController, "/pessoas/<int:id>")
 
-
     api.init_app(app)
 
 

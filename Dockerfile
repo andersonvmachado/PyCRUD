@@ -4,6 +4,8 @@ RUN mkdir -p /home/py/app
 
 WORKDIR /home/py/app
 
+ENV PYTHONPATH=/home/py/app
+
 COPY . .
 
 RUN pip3 install -r requirements.txt
