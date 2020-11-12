@@ -3,6 +3,14 @@ clean:
 	find . -name '*.pyo' -exec rm --force {} +
 	find . | grep -E "__pycache__|.pytest_cache|.pyc|.DS_Store$$" | xargs rm -rf
 
+migrate:
+	#Primeira vez  export PYTHONPATH=/home/anderson/Dados/Dev/Python/PyCRUD
+	#flask db init
+	@export PYTHONPATH="/home/anderson/Dados/Dev/Python/PyCRUD" && python src/alembic/manager.py db migrate
+
+upgrade:
+	@export PYTHONPATH="/home/anderson/Dados/Dev/Python/PyCRUD" && python src/alembic/manager.py db upgrade
+
 docker:
 	@echo "---- Building & Up Container ----"
 	@docker-compose down

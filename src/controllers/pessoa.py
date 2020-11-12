@@ -1,19 +1,34 @@
+import json
 from flask_restful import Resource
 from flask import jsonify, request
 
 from src.models.pessoa import Pessoa
 from src.utils.parser import parser_pessoa
+from src.controllers import redis_client
 
 
 class PessoasController(Resource):
 
     @staticmethod
     def get():
-        return jsonify(Pessoa.get_pessoa())
+        cache = redis_client.hget(name="allpeoples", key="peoples-qry")
+        if cache:
+            return jsonify(json.loads(cache))
+
+        data = Pessoa.get_pessoa()
+
+        redis_client.hset(
+            name="allpeoples",
+            key="peoples-qry",
+            value=json.dumps(data)
+        )
+
+        return jsonify(data)
 
     @staticmethod
     def post():
         body = request.json
+        redis_client.hdel("allpeoples", "peoples-qry")
         return Pessoa.insert_pessoa(body)
 
 

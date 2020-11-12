@@ -1,6 +1,8 @@
+import json
 from src.models import db
 
 from src.utils.parser import parser_pessoa
+
 
 class Pessoa(db.Model):
     id = db.Column(db.Integer, primary_key=True)
